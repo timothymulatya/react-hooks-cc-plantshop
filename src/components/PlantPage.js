@@ -8,6 +8,15 @@ function PlantPage() {
   const [plants, setPlants] = useState([]); // All plants from backend
   const [searchTerm, setSearchTerm] = useState(""); // Text typed in the search box
 
+  //LOADING DATA FROM BACKEND
+  useEffect(() => {
+    fetch("http://localhost:6001/plants")
+      .then((response) => response.json())
+      .then((data) => setPlants(data))
+      .catch((error) => console.error("Error loading plants:", error));
+  }, []);
+
+  
   
   );
 
