@@ -20,13 +20,13 @@ function NewPlantForm({ onAddPlant }) {
     const newPlant = {
       name: formData.name,
       image: formData.image,
-      price: formData.price, // Keep as string for the test
+      price: formData.price,
     };
 
     fetch("http://localhost:6001/plants", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "Application/JSON", // Capitalized as test expects
       },
       body: JSON.stringify(newPlant),
     })
