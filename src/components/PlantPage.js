@@ -16,8 +16,14 @@ function PlantPage() {
       .catch((error) => console.error("Error loading plants:", error));
   }, []);
 
-  
-  
+  // ADDING NEW PLANT
+  function handleAddPlant(newPlant) {
+    setPlants((prev) => [...prev, newPlant]);
+  }
+
+  // FILTERING PLANTS BY SEARCH
+  const visiblePlants = plants.filter((plant) =>
+    plant.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
