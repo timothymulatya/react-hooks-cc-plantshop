@@ -4,32 +4,29 @@ import PlantList from "./PlantList";
 import Search from "./Search";
 
 function PlantPage() {
-  const [plants, setPlants] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [plantCollection, setPlantCollection] = useState([]);
+  const [filterText, setFilterText] = useState("");
 
-  // Fetch plants from backend
   useEffect(() => {
     fetch("http://localhost:6001/plants")
-      .then((res) => res.json())
-      .then((data) => setPlants(data))
-      .catch((err) => console.error("Error loading plants:", err));
+      .then((response) => response.json())
+      .then((plantsData) => setPlantCollection(plantsData))
+      .catch((error) => console.error("Could not load plants:", error));
   }, []);
 
-  // Add new plant
-  function handleAddPlant(newPlant) {
-    setPlants((prev) => [...prev, newPlant]);
-  }
+  const addNewPlant = (newPlant) => {
+    setPlantCollection((previousPlants) => [...previousPlants, newPlant]);
+  };
 
-  // Filter plants based on search term
-  const visiblePlants = plants.filter((plant) =>
-    plant.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredPlants = plantCollection.filter((plant) =>
+    plant.name.toLowerCase().includes(filterText.toLowerCase())
   );
 
   return (
     <main>
-      <NewPlantForm onAddPlant={handleAddPlant} />
-      <Search searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-      <PlantList plants={visiblePlants} />
+      <NewPlantForm onAddPlant={addNewPlant} />
+      <Search searchTerm={filterText} onSearchChange={setFilterText} />
+      <PlantList plants={filteredPlants} />
     </main>
   );
 }

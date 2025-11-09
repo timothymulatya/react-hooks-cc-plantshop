@@ -1,29 +1,22 @@
 import React, { useState } from "react";
 
 function PlantCard({ plant }) {
-  const [isInStock, setIsInStock] = useState(true);
+  const [stockStatus, setStockStatus] = useState(true);
 
-  // Make sure function name matches
-  function handleStockClick() {
-    setIsInStock((prev) => !prev);
-  }
+  const toggleStock = () => {
+    setStockStatus(!stockStatus);
+  };
 
   return (
-    <li className="card" data-testid="plant-item">
+    <li className="card">
       <img src={plant.image} alt={plant.name} />
-      <div className="card-info">
-        <h4>{plant.name}</h4>
-        <p>${plant.price}</p>
-        <button
-          className={isInStock ? "primary" : ""}
-          onClick={handleStockClick} // Use the correct function name
-        >
-          {isInStock ? "In Stock" : "Out of Stock"}
-        </button>
-      </div>
+      <h4>{plant.name}</h4>
+      <p>Price: ${plant.price}</p>
+      <button className={stockStatus ? "primary" : ""} onClick={toggleStock}>
+        {stockStatus ? "In Stock" : "Out of Stock"}
+      </button>
     </li>
   );
 }
 
 export default PlantCard;
-
