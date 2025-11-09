@@ -24,9 +24,15 @@ function PlantPage() {
 
   return (
     <main>
-      <NewPlantForm onAddPlant={addNewPlant} />
-      <Search searchTerm={filterText} onSearchChange={setFilterText} />
-      <PlantList plants={filteredPlants} />
+      <div className="main-layout">
+        <div className="form-section">
+          <NewPlantForm onAddPlant={addNewPlant} />
+        </div>
+        <div className="plants-section">
+          <Search searchTerm={filterText} onSearchChange={setFilterText} />
+          <PlantList plants={filteredPlants} />
+        </div>
+      </div>
     </main>
   );
 }
