@@ -12,7 +12,16 @@ function NewPlantForm({ onAddPlant }) {
     setForm({ ...form, [name]: value });
   }
 
- 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const newPlant = {
+      name: form.name,
+      image: form.image,
+      price: parseFloat(form.price),
+    };
+
+
   }
 
   return (
