@@ -4,24 +4,23 @@ import PlantList from "./PlantList";
 import Search from "./Search";
 
 function PlantPage() {
-  // ---- STATE ----
-  const [plants, setPlants] = useState([]); // All plants from backend
-  const [searchTerm, setSearchTerm] = useState(""); // Text typed in the search box
+  const [plants, setPlants] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  //LOADING DATA FROM BACKEND
+  // Fetch plants from backend
   useEffect(() => {
     fetch("http://localhost:6001/plants")
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => setPlants(data))
-      .catch((error) => console.error("Error loading plants:", error));
+      .catch((err) => console.error("Error loading plants:", err));
   }, []);
 
-  // ADDING NEW PLANT
+  // Add new plant
   function handleAddPlant(newPlant) {
     setPlants((prev) => [...prev, newPlant]);
   }
 
-  // FILTERING PLANTS BY SEARCH
+  // Filter plants based on search term
   const visiblePlants = plants.filter((plant) =>
     plant.name.toLowerCase().includes(searchTerm.toLowerCase())
   );

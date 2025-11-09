@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 function NewPlantForm({ onAddPlant }) {
   const [form, setForm] = useState({
@@ -21,7 +21,17 @@ function NewPlantForm({ onAddPlant }) {
       price: parseFloat(form.price),
     };
 
-
+    fetch("http://localhost:6001/plants", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newPlant),
+    })
+      .then((res) => res.json())
+      .then((savedPlant) => {
+        onAddPlant(savedPlant);
+        setForm({ name: "", image: "", price: "" });
+      })
+      .catch((err) => console.error("Error adding plant:", err));
   }
 
   return (
